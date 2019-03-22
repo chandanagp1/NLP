@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html class="gr__ron_artstein_org"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<link rel="stylesheet" type="text/css" href="CSCI%20544:%20Coding%20Exercise%202_files/csci544.css">
+<title>CSCI 544: Coding Exercise 2</title>
+</head>
+
+<body data-gr-c-s-loaded="true">
+
+<div style="background-color:#900 ; text-align: right ; margin:0px">
+  <a href="http://www.usc.edu/">
+  <img style="padding:11px" src="CSCI%20544:%20Coding%20Exercise%202_files/usc-shield-name-white.png" alt="University of Southern California"></a>
+</div>
+
+<h1>CSCI 544&nbsp;— Applied Natural Language Processing</h1>
+
+<hr>
+<h2>Coding Exercise 2</h2>
+<h2>Due: February&nbsp;21, 2019, at 23:59 Pacific Time (11:59 PM)</h2>
+<p>This assignment counts for 9% of the course grade.
+</p><p>Assignments turned in after the deadline but before
+February&nbsp;24 are subject to a 30% grade penalty.
+
+</p><hr>
+
+<h2>Overview</h2>
+
+<p>In this assignment you will write perceptron classifiers (vanilla
+and averaged) to identify hotel reviews as either truthful or deceptive, and
+either positive or negative.
+You may use the word tokens as features, or any other features you
+can devise from the text.
+The assignment will be graded based on the performance of your
+classifiers, that is how well they perform on unseen test data
+compared to the performance of a reference classifier.
+
+</p><h2>Data</h2>
+
+<p>The training and development data are the same as for
+<a href="http://ron.artstein.org/csci544-2019/coding-1.html">Coding Exercise&nbsp;1</a>, and are available as a
+compressed ZIP archive on <a href="http://blackboard.usc.edu/">Blackboard</a>.
+The uncompressed archive contains the following files:
+</p><ul>
+  <li>A top-level directory with two sub-directories, one for positive
+  reviews and another for negative reviews (plus license and readme
+  files which you won’t need for the exercise).
+  </li><li>Each of the subdirectories contains two sub-directories, one
+  with truthful reviews and one with deceptive reviews.
+  </li><li>Each of these subdirectories contains four subdirectories,
+  called “folds”.
+  </li><li>Each of the folds contains 80 text files with English text (one
+  review per file).
+</li></ul>
+
+<p>The grading script will train your model on all of the training
+data, and test the model on unseen data in a similar format. The
+directory structure and file names of the test data will be masked so
+that they do not reveal the labels of the individual test files.
+
+</p><h2>Programs</h2>
+
+<p>The perceptron algorithms appear in
+<a href="http://www.ciml.info/dl/v0_99/ciml-v0_99-ch04.pdf">Hal 
+Daumé III, A Course in Machine Learning (v.&nbsp;0.99 draft),
+Chapter 4: The Perceptron</a>.
+
+</p><p>You will write two programs: <code>perceplearn.py</code> will learn
+perceptron models (vanilla and averaged) from the training data, and
+<code>percepclassify.py</code> will use the models to classify new data. If
+using Python 3, you will name your programs <code>perceplearn3.py</code>
+and <code>percepclassify3.py</code>. You are encouraged to reuse
+<em>your own</em> code from Coding Exercise&nbsp;1 for reading the
+data and writing the output, so that you can concentrate on
+implementing the classification algorithm.
+
+</p><p>The learning program will be invoked
+in the following way:
+
+</p><p><code>&gt; python perceplearn.py /path/to/input</code>
+
+</p><p>The argument is the directory of the training data; the program
+will learn perceptron models, and write the model parameters to two files:
+<code>vanillamodel.txt</code> for the vanilla perceptron, and
+<code>averagedmodel.txt</code> for the averaged perceptron.  
+The format of the model files is up to
+you, but they should follow the following guidelines:
+</p><ol>
+  <li> The model files should contain sufficient information for
+  <code>percepclassify.py</code> to successfully label new data.
+  </li><li> The model files should be human-readable, so that model
+  parameters can be easily understood by visual inspection of the
+  file.
+</li></ol>
+
+<p>The classification program will be invoked in the following way:
+
+</p><p><code>&gt; python percepclassify.py /path/to/model /path/to/input</code>
+
+</p><p>The first argument is the path to the model file (<code>vanillamodel.txt</code> or
+<code>averagedmodel.txt</code>), and the second argument is the path
+to the directory of the test data file; the program
+will read the parameters of a perceptron model from the model file,
+classify each entry in the test data, and
+write the results to a text file called <code>percepoutput.txt</code> in
+the following format:
+
+</p><p><code>label_a label_b path1<br>label_a label_b path2</code>
+<br>&#8942;</p>
+
+<p>In the above format, <code>label_a</code> is either
+“truthful” or “deceptive”,
+<code>label_b</code> is either “positive” or
+“negative”, and <code>path<i>n</i></code> is the path of
+the text file being classified.
+
+</p><h2>Submission</h2>
+
+<p>All submissions will be completed through
+<a href="https://labs.vocareum.com/main/main.php">Vocareum</a>;
+please consult the <a href="http://ron.artstein.org/csci544-2019/Student-Help-Vocareum.pdf">instructions
+for how to use Vocareum</a>.
+
+</p><p>Multiple submissions are allowed; only the final submission will be
+graded. Each time you submit, a submission script is invoked. The
+submission script uses a specific portion of the training data
+as development data; it trains your model on the remaining training
+data, runs your classifier on the development data, and reports the results.
+Do not include the data in your submission: the submission script
+reads the data from a central directory, not from your
+personal directory.
+You should only upload your program files to Vocareum, that is
+<code>percepclassify.py</code> and <code>perceplearn.py</code> (plus any
+required auxiliary files, such as code shared between the programs or
+a word list <i>that you wrote yourself</i>).
+
+</p><p>You are encouraged to <strong>submit early and
+often</strong> in order to iron out any problems, especially issues
+with the format of the final output.
+
+</p><p><span style="color:red">The performance of you classifier will be
+measured automatically; failure to format your output correctly may
+result in very low scores, which will not be changed.</span>
+
+</p><p>For full credit, make sure to submit your assignment well before
+the deadline. The time of submission recorded by the system is the
+time used for determining late penalties. If your submission is
+received late, whatever the reason (including equipment failure and
+network latencies or outages), it will incur a late penalty.
+
+</p><p>If you have any issues with Vocareum with regards to logging in,
+submission, code not executing properly, etc., please contact
+<a href="http://broken-link/">the TAs</a>.
+
+</p><h2>Grading</h2>
+
+<p>After the due date, we will train your model on the full training data
+(including development data), run your classifier on unseen test
+data twice (once with the vanilla model, and once with the averaged
+model), and compute the F1 score of your output for each of the four classes (truthful, deceptive,
+positive, and negative). Your grade will be based on the performance
+of your classifier. We will calculate the mean of the four F1 scores
+for each model and scale it to the performance of a perceptron classifier developed
+by the instructional staff
+(so if that classifier has F1=0.8, then a score of 0.8 will receive a
+full credit, and a score of 0.72 will receive 90%&nbsp;credit;
+your vanilla perceptron will be compared to a reference vanilla
+perceptron, and your averaged perceptron will be compared to a
+reference averaged perceptron).
+The overall grade will be the mean of the grades for the vanilla and
+averaged perceptrons.
+
+</p><h2>Notes</h2>
+
+<ul>
+  <li><strong>Development data.</strong> While developing your
+  programs, you should reserve some of the data as development data in
+  order to test the performance of your programs. The submission
+  script on Vocareum will use folds 2, 3, and&nbsp;4 as training data, and
+  fold&nbsp;1 as development data: that is, it will run
+  <code>perceplearn.py</code> on a directory containing only folds 2, 3,
+  and&nbsp;4, and it will run <code>percepclassify.py</code> on a directory
+  with a modified version of fold&nbsp;1, where directory and file names
+  are masked. While developing on your own you may use
+  different splits of the data (but to get the same results
+  as the submission script, you'll need to use the same split).
+  The grading script will use all 4
+  folds for training, and unseen data for testing.
+  </li><li><strong>Problem formulation.</strong> Since a perceptron is a
+  binary classifier, you need to treat the problem
+  as two separate binary classification problems (truthful/deceptive and
+  positive/negative); each of the model files (vanilla and averaged)
+  needs to have the model parameters for both classifiers.
+  </li><li><strong>Features and tokenization.</strong> You’d need to
+  develop some reasonable method of identifying features in the text.
+  Some common options
+  are removing certain punctuation, or lowercasing all the letters.
+  You may also find it useful to ignore certain high-frequency or
+  low-frequency tokens. You may use any tokenization method which you
+  implement yourselves. Experiment, and choose whichever works best.
+  </li><li><strong>Runtime efficiency.</strong> Vocareum imposes a 
+  limit on running times, and if a program takes too long, Vocareum
+  will kill the process. Your program therefore needs to run
+  efficiently.
+  You need an efficient way to store the training instances, in order
+  to avoid reading them over and over again (reading and parsing text
+  is slow). Also, feature vectors for individual training instances
+  are typically fairly sparse: for a reference solution with about
+  1000 features, the mean number of non-zero features per training
+  instance is about&nbsp;77; it would be highly inefficient to
+  multiply and add all the 900+ zeros at every step.
+  The reference solution stores the training data as a python dict
+  indexed by the unique identifiers of the reviews, and the feature
+  vector for each training instance as a dict of the form
+  feature:count.  With about 1000 features and 100&nbsp;iterations
+  (which is probably more than needed, due to overfitting), run times for the reference
+  solution are under 5&nbsp;seconds for running
+  <code>perceplearn.py</code> on the training data, running on a
+  MacBook Pro from 2016.
+  </li><li><strong>Overfitting.</strong> The perceptron has a tendency to
+  overfit the training data, so you should experiment in order to find out
+  a good number of iterations to stop at.
+
+</li></ul>
+  
+<h2>Collaboration and external resources</h2>
+
+<ul>
+  <li>This is an individual assignment. You may not work in teams or
+  collaborate with other students. You must be the sole author of 100%
+  of the code you turn in.
+  </li><li>You may not look for solutions on the web, or use code you find
+  online or anywhere else.
+  </li><li>You may not download the data from any source other than the
+  files provided on Blackboard, and you may not attempt to locate the
+  test data on the web or anywhere else.
+  </li><li>You may use packages in the Python Standard Library, as well as numpy. You may not
+  use any other packages.
+  </li><li>You may use external resources to learn basic functions of
+  Python (such as reading and writing files, handling text strings, and
+  basic math), but the extraction and computation of model parameters,
+  as well as the use of these parameters for classification, must be
+  your own work.
+  </li><li>Failure to follow the above rules is considered a violation of
+  <a href="http://ron.artstein.org/csci544-2019/integrity.html">academic integrity</a>,
+  and is grounds for failure of the assignment, or
+  in serious cases failure of the course.
+  </li><li>We use plagiarism detection software to identify
+  similarities between student assignments, and between student
+  assignments and known solutions on the web.
+  <strong>Any attempt to fool plagiarism detection, for
+  example the modification of code to reduce its similarity to the
+  source, will result in an automatic failing grade for the
+  course.</strong>
+  </li><li>Please discuss any issues you have on the Piazza discussion
+  boards. Do not ask questions about the assignment by email; if we
+  receive questions by email where the response could be helpful for
+  the class, we will ask you to repost the question on the discussion
+  boards.
+</li></ul>
+
+
+
+</body></html>
